@@ -1,0 +1,40 @@
+CAMBIOS A LOS SCRIPTS PARA QUE FUNCIONEN EN UNITY 5
+---------------------------------------------------
+
+Estos son los cambios que hay que hacer a los scripts para que funcionen en Unity 5.
+Donde se haga referencia a las variables "renderer", "rigidbody2D", "audio" y "camera", hay que reemplazarlas por "GetComponent<TipoDeLaVariable>()". Siendo "TipoDeLaVariable" el tipo de cada una:
+
+Nombre       Tipo
+---------------------
+renderer --> Renderer
+rigidbody2D --> Rigidbody2D
+audio --> AudioSource
+camera --> Camera
+
+A continuación listo todos los scripts en los que hay que hacer cambios y qué hay que cambiar:
+
+Scroll.cs
+---------
+renderer --> GetComponent<Renderer>()
+
+
+ControladorPersonaje.cs
+-----------------------
+rigidbody2D --> GetComponent<Rigidbody2D>()
+audio --> GetComponent<AudioSource>()
+
+
+BotonCargarEscena.cs
+--------------------
+audio --> GetComponent<AudioSource>()
+
+
+AspectUtility.cs
+----------------
+camera --> GetComponent<Camera>()
+
+
+ActivarGameOver.cs
+------------------
+audio --> GetComponent<AudioSource>()
+
