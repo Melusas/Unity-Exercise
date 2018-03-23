@@ -1,2 +1,4 @@
 # Unity-Exercise
-Platform runner
+Platform 2D runner made with unity
+
+Made by Victor Lizaldre Hermosa and Joel Bertran Izquierdo
