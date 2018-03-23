@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ControladorPersonaje : MonoBehaviour {
+public class ControladorPersonaje1 : MonoBehaviour {
 
 	public float fuerzaSalto = 100f;
 
@@ -16,10 +16,11 @@ public class ControladorPersonaje : MonoBehaviour {
 
 	private bool corriendo = false;
 	public float velocidad = 1f;
-
-	void Awake(){
+    private Rigidbody2D rb;
+    void Awake(){
 		animator = GetComponent<Animator>();
-	}
+        rb = GetComponent<Rigidbody2D>();
+    }
 
 	// Use this for initialization
 	void Start () {
@@ -28,9 +29,9 @@ public class ControladorPersonaje : MonoBehaviour {
 
 	void FixedUpdate(){
 		if(corriendo){
-            GetComponent<Rigidbody2D>().velocity = new Vector2(velocidad, GetComponent<Rigidbody2D>().velocity.y);
+			rb.velocity = new Vector2(velocidad, rb.velocity.y);
 		}
-		animator.SetFloat("VelX", GetComponent<Rigidbody2D>().velocity.x);
+		animator.SetFloat("VelX", rb.velocity.x);
 		enSuelo = Physics2D.OverlapCircle(comprobadorSuelo.position, comprobadorRadio, mascaraSuelo);
 		animator.SetBool("isGrounded", enSuelo);
 		if(enSuelo){
@@ -44,7 +45,8 @@ public class ControladorPersonaje : MonoBehaviour {
 			if(corriendo){
 				// Hacemos que salte si puede saltar
 				if(enSuelo || !dobleSalto){
-                    GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, fuerzaSalto);
+					//audio.Play();
+					rb.velocity = new Vector2(rb.velocity.x, fuerzaSalto);
 					//rigidbody2D.AddForce(new Vector2(0, fuerzaSalto));
 					if(!dobleSalto && !enSuelo){
 						dobleSalto = true;
@@ -52,6 +54,7 @@ public class ControladorPersonaje : MonoBehaviour {
 				}
 			}else{
 				corriendo = true;
+				NotificationCenter.DefaultCenter().PostNotification(this, "PersonajeEmpiezaACorrer");
 			}
 		}
 	}
